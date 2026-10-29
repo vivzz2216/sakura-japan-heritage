@@ -1,0 +1,12 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependencies & Temp Files
+node_modules/
+temp_*.html
+
+# Tool & Inspection Artifacts
+.taste-skill/
+.impeccable/

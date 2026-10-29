@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#7faad4">
+  <meta name="description"
+    content="Sakura is a peaceful digital sanctuary inspired by Japan's seasonal beauty — a calm space to explore, create and be present.">
+  <title>sakura — a place where beauty feels alive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="assets/sky-day.webp?v=4k">
+  <link rel="preload" as="image" href="assets/shrine-day.webp?v=4k">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=4k">
+  <script src="vendor/motion.js" defer></script>
+  <script src="app.js?v=4k" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to sanctuary</a>
+
+  <main class="world" id="main">
+    <!-- Layer 1: Sky & Distant Mountains (Day & Night) -->
+    <div class="layer layer-sky" aria-hidden="true">
+      <div class="sky-backdrop sky-day"></div>
+      <div class="sky-backdrop sky-night"></div>
+      <div class="sky-atmosphere"></div>
+    </div>
+
+    <!-- Layer 2: Large "sakura" Wordmark integrated into the scenery -->
+    <div class="wordmark-stage" aria-hidden="true">
+      <div class="wordmark" role="img" aria-label="sakura">
+        <span class="wordmark-char" style="--letter:0">s</span><span class="wordmark-char"
+          style="--letter:1">a</span><span class="wordmark-char" style="--letter:2">k</span><span class="wordmark-char"
+          style="--letter:3">u</span><span class="wordmark-char" style="--letter:4">r</span><span class="wordmark-char"
+          style="--letter:5">a</span>
+      </div>
+    </div>
+
+    <!-- Mid-depth drifting sakura petals (behind shrine & trees) -->
+    <canvas class="petal-canvas petal-canvas-back" id="petals-back" aria-hidden="true"></canvas>
+
+    <!-- Layer 3: Traditional Japanese Shrine, Red Arched Bridge & Sakura Trees -->
+    <div class="layer layer-shrine" aria-hidden="true">
+      <img class="shrine-img shrine-day" src="assets/shrine-day.webp?v=4k" width="3840" height="2144" alt="">
+      <img class="shrine-img shrine-night" src="assets/shrine-night.webp?v=4k" width="3840" height="2144" alt="">
+      <!-- Soft warm illumination halos over the shrine lanterns & blossom boughs at night -->
+      <div class="lantern-glows">
+        <span class="lantern-halo halo-bridge-left"></span>
+        <span class="lantern-halo halo-shrine-center"></span>
+        <span class="lantern-halo halo-shrine-right"></span>
+        <span class="lantern-halo halo-blossom-canopy"></span>
+      </div>
+      <div class="water-reflection-edge" aria-hidden="true"></div>
+    </div>
+
+    <!-- Layer 4: Night Fireflies (Hotaru) with soft environmental illumination -->
+    <div class="fireflies" aria-hidden="true">
+      <i style="--left:9%;--bottom:18%;--size:3px;--duration:5.2s;--delay:0s"></i>
+      <i style="--left:18%;--bottom:26%;--size:2.5px;--duration:6.4s;--delay:-1.8s"></i>
+      <i style="--left:27%;--bottom:14%;--size:3.5px;--duration:5.8s;--delay:-3.1s"></i>
+      <i style="--left:38%;--bottom:22%;--size:2.5px;--duration:6.9s;--delay:-0.9s"></i>
+      <i style="--left:49%;--bottom:16%;--size:3px;--duration:5.5s;--delay:-2.4s"></i>
+      <i style="--left:61%;--bottom:28%;--size:3px;--duration:6.1s;--delay:-4.2s"></i>
+      <i style="--left:71%;--bottom:19%;--size:3.5px;--duration:5.7s;--delay:-1.4s"></i>
+      <i style="--left:82%;--bottom:25%;--size:2.5px;--duration:6.6s;--delay:-2.9s"></i>
+      <i style="--left:91%;--bottom:15%;--size:3px;--duration:5.3s;--delay:-0.6s"></i>
+    </div>
+
+    <!-- Foreground drifting sakura petals -->
+    <canvas class="petal-canvas petal-canvas-front" id="petals-front" aria-hidden="true"></canvas>
+
+    <!-- Theme and sanctuary menu controls -->
+    <header class="topbar">
+      <div class="top-actions">
+        <!-- Elegant Day / Night Toggle Capsule with Sliding Knob -->
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false"
+          aria-label="Switch between day and night view">
+          <span class="toggle-track" aria-hidden="true">
+            <span class="icon-wrap icon-sun-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4" />
+                <path
+                  d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" />
+              </svg>
+            </span>
+            <span class="toggle-thumb"></span>
+            <span class="icon-wrap icon-moon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            </span>
+          </span>
+          <span class="toggle-label" id="toggle-label" aria-hidden="true">Night</span>
+        </button>
+
+        <!-- Minimal 3-bar hamburger menu button -->
+        <button class="menu-toggle" id="menu-toggle" type="button" data-open="ritual"
+          aria-label="Open sanctuary menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Vertical Pagination Indicator on Right Edge -->
+    <aside class="page-indicator" aria-hidden="true">
+      <span class="indicator-num is-active">01</span>
+      <span class="indicator-line"></span>
+      <span class="indicator-num">02</span>
+      <span class="indicator-line"></span>
+      <span class="indicator-num">03</span>
+    </aside>
+
+    <!-- Center-Bottom Mouse Scroll Cue -->
+    <div class="scroll-cue" id="scroll-cue" data-open="ritual" role="button" tabindex="0"
+      aria-label="Scroll or tap to begin breathing ritual">
+      <div class="mouse-icon" aria-hidden="true">
+        <span class="mouse-wheel"></span>
+      </div>
+      <span class="scroll-label">Scroll to begin</span>
+    </div>
+
+    <!-- Restrained Bottom Bar -->
+    <footer class="bottom-bar">
+      <span class="bottom-credit">Sakura Sanctuary · Spring Study</span>
+      <div class="bottom-actions">
+        <button class="breeze-pill" id="breeze-btn" type="button" aria-label="Stir a gentle blossom breeze">
+          <span class="breeze-leaf" aria-hidden="true">🍃</span> Stir the breeze
+        </button>
+      </div>
+      <span class="bottom-hint" id="scene-status">Daylight · Mountain Mist</span>
+    </footer>
+  </main>
+
+  <!-- Accessible Modal Dialog for Sanctuary Notes & Breathing Ritual -->
+  <dialog class="panel" id="panel" aria-labelledby="panel-title">
+    <div class="panel-inner">
+      <button type="button" class="panel-close" id="panel-close" aria-label="Close dialog">×</button>
+      <p class="panel-mark" aria-hidden="true">sakura</p>
+      <h2 id="panel-title"></h2>
+      <p id="panel-copy"></p>
+      <div class="breath-stage" id="breath-stage" hidden>
+        <div class="breath-ring" aria-hidden="true">
+          <span class="breath-core"></span>
+        </div>
+        <p class="breath-phase" id="breath-phase" aria-live="polite">Inhale slowly for four counts</p>
+      </div>
+      <button type="button" class="panel-done" id="panel-done">
+        Return to the shrine <span aria-hidden="true">↗</span>
+      </button>
+    </div>
+  </dialog>
+</body>
+
+</html>

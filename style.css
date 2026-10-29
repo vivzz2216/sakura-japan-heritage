@@ -6,9 +6,9 @@
    =================================================================== */
 
 :root {
-  --font-display: "Bodoni Moda", "Italiana", "Playfair Display", "Shippori Mincho", "Cormorant Garamond", Georgia, serif;
+  --font-display: "Italiana", "Cormorant Garamond", Georgia, serif;
   --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-kanji: "Shippori Mincho", "Noto Serif JP", serif;
+  --font-kanji: "Noto Serif JP", serif;
   
   /* Day Palette (Washi Paper & Sakura Rose) */
   --ink: #182232;
@@ -472,7 +472,7 @@ body.is-night .sky-night,
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 62% 48% at 18% 18%, rgba(244, 249, 255, 0.72) 0%, rgba(235, 244, 252, 0.32) 52%, transparent 80%),
+    radial-gradient(ellipse 70% 55% at 50% 28%, rgba(255, 230, 240, 0.38) 0%, rgba(255, 240, 246, 0.14) 52%, transparent 78%),
     linear-gradient(180deg, rgba(230, 241, 252, 0.42) 0%, transparent 38%);
   transition: opacity 1.2s ease, background 1.2s ease;
 }
@@ -490,62 +490,39 @@ body.is-night .sky-atmosphere,
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: clamp(120px, 16vh, 190px);
+  padding-top: clamp(100px, 15vh, 175px);
   transform: translate3d(calc(var(--px) * -3.5px), calc(var(--py) * -2.5px), 0);
   transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
 
 .wordmark {
-  font-family: "Bodoni Moda", var(--font-display);
-  font-optical-sizing: auto;
-  font-variation-settings: "opsz" 96, "wght" 600;
-  font-size: clamp(88px, 19vw, 300px);
-  font-weight: 600;
-  line-height: 0.88;
-  letter-spacing: clamp(0.06em, 1.35vw, 0.11em);
+  font-family: "Italiana", var(--font-display);
+  font-size: clamp(86px, 18.2vw, 280px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: clamp(0.04em, 1.1vw, 0.08em);
   text-transform: lowercase;
   user-select: none;
   display: flex;
   justify-content: center;
   color: #ffffff;
-  filter:
-    drop-shadow(0 6px 20px rgba(18, 28, 48, 0.35))
-    drop-shadow(0 0 32px rgba(255, 235, 245, 0.5));
+  filter: drop-shadow(0 4px 16px rgba(18, 28, 48, 0.38));
   text-shadow:
-    0 1px 4px rgba(15, 23, 42, 0.4),
-    0 8px 36px rgba(255, 255, 255, 0.55);
-  transition: filter 1.2s ease;
+    0 1px 3px rgba(15, 23, 42, 0.45),
+    0 4px 24px rgba(255, 255, 255, 0.75),
+    0 0 36px rgba(255, 235, 245, 0.5);
+  transition: filter 1.2s ease, text-shadow 1.2s ease;
 }
 
 body.is-night .wordmark,
 .world.is-night .wordmark {
   color: #ffffff;
-  filter:
-    drop-shadow(0 0 50px rgba(230, 242, 255, 0.85))
-    drop-shadow(0 8px 32px rgba(10, 18, 38, 0.95));
+  filter: drop-shadow(0 8px 32px rgba(8, 14, 30, 0.95));
   text-shadow:
-    0 0 28px rgba(255, 255, 255, 0.85),
-    0 12px 42px rgba(180, 215, 255, 0.45);
-}
-
-.wordmark-char {
-  display: inline-block;
-  opacity: 0;
-  transform: translate3d(0, 36px, 0);
-  will-change: transform, opacity;
-}
-
-html.scene-ready .wordmark-char {
-  animation: char-enter 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: calc(var(--letter) * 0.08s + 0.15s);
-}
-
-@keyframes char-enter {
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
+    0 0 16px rgba(255, 255, 255, 0.95),
+    0 0 36px rgba(220, 240, 255, 0.75),
+    0 0 60px rgba(180, 215, 255, 0.45);
 }
 
 /* Mid Petals */

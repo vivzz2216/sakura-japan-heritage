@@ -130,11 +130,7 @@ function initHeroMotion() {
   const { animate, stagger, hover, press, spring } = window.Motion;
 
   const chars = document.querySelectorAll('.wordmark-char');
-  if (chars.length) {
-    animate(chars, { opacity: [0, 1], y: [32, 0] },
-      { duration: 0.85, delay: stagger(0.055, { startDelay: 0.05 }), ease: [0.16, 1, 0.3, 1] }
-    );
-  }
+  // Chars entrance animated smoothly by CSS keyframes char-enter (forwards)
 
   const introItems = document.querySelectorAll('.intro-tag, .intro h1, .intro p, .hero-cta-group');
   if (introItems.length) {

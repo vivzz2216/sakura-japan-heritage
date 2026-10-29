@@ -10,12 +10,18 @@
   <title>sakura — a place where beauty feels alive</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="image" href="assets/sky-day.webp?v=4k">
-  <link rel="preload" as="image" href="assets/shrine-day.webp?v=4k">
+  <link rel="preload" as="image" href="assets/shrine-day.webp?v=4k" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/sky-day.webp?v=4k" fetchpriority="high">
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..800&family=Italiana&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Shippori+Mincho:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=4k">
+  <script>
+    (function() {
+      // Mark initial loading state to coordinate entrance and prevent bare-mountain pop-in
+      document.documentElement.classList.add('scene-loading');
+    })();
+  </script>
   <script src="vendor/motion.js" defer></script>
   <script src="app.js?v=4k" defer></script>
 </head>
@@ -46,8 +52,8 @@
 
     <!-- Layer 3: Traditional Japanese Shrine, Red Arched Bridge & Sakura Trees -->
     <div class="layer layer-shrine" aria-hidden="true">
-      <img class="shrine-img shrine-day" src="assets/shrine-day.webp?v=4k" width="3840" height="2144" alt="">
-      <img class="shrine-img shrine-night" src="assets/shrine-night.webp?v=4k" width="3840" height="2144" alt="">
+      <img class="shrine-img shrine-day" src="assets/shrine-day.webp?v=4k" width="3840" height="2144" alt="" fetchpriority="high" loading="eager" decoding="sync">
+      <img class="shrine-img shrine-night" src="assets/shrine-night.webp?v=4k" width="3840" height="2144" alt="" loading="lazy">
       <!-- Soft warm illumination halos over the shrine lanterns & blossom boughs at night -->
       <div class="lantern-glows">
         <span class="lantern-halo halo-bridge-left"></span>

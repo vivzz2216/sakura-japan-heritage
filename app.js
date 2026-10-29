@@ -5,7 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
-  initHeroMotion();
+  initSceneReveal();
   initPetalCanvases();
   initParallax();
   initNavigation();
@@ -85,15 +85,53 @@ function initTheme() {
    1B. MOTION.DEV ENTRANCE CHOREOGRAPHY & TACTILE BUTTONS
    =================================================================== */
 
+/* ===================================================================
+   1A. COORDINATED SCENE REVEAL (NO FLASH / NO POP-IN)
+   =================================================================== */
+
+function initSceneReveal() {
+  const shrineImg = document.querySelector('.shrine-day');
+  let revealed = false;
+
+  function reveal() {
+    if (revealed) return;
+    revealed = true;
+    document.documentElement.classList.remove('scene-loading');
+    document.documentElement.classList.add('scene-ready');
+    document.body.classList.add('scene-ready');
+    requestAnimationFrame(() => {
+      initHeroMotion();
+    });
+  }
+
+  if (shrineImg && shrineImg.complete && shrineImg.naturalWidth > 0) {
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(reveal).catch(reveal);
+    } else {
+      reveal();
+    }
+  } else if (shrineImg) {
+    shrineImg.addEventListener('load', () => {
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(reveal).catch(reveal);
+      } else {
+        reveal();
+      }
+    }, { once: true });
+    shrineImg.addEventListener('error', reveal, { once: true });
+    setTimeout(reveal, 1400);
+  } else {
+    reveal();
+  }
+}
+
 function initHeroMotion() {
   if (!window.Motion || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const { animate, stagger, hover, press, spring } = window.Motion;
 
   const chars = document.querySelectorAll('.wordmark-char');
   if (chars.length) {
-    animate(
-      chars,
-      { opacity: [0.96, 1], y: [20, 0] },
+    animate(chars, { opacity: [0, 1], y: [32, 0] },
       { duration: 0.85, delay: stagger(0.055, { startDelay: 0.05 }), ease: [0.16, 1, 0.3, 1] }
     );
   }

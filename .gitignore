@@ -14,3 +14,4 @@ temp_*.html
 
 .vercel
 .env*
+assets/_backup_*/ 

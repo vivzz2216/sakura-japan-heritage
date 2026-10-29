@@ -6,9 +6,9 @@
    =================================================================== */
 
 :root {
-  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-display: "Bodoni Moda", "Italiana", "Playfair Display", "Shippori Mincho", "Cormorant Garamond", Georgia, serif;
   --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-kanji: "Noto Serif JP", "Cormorant Garamond", serif;
+  --font-kanji: "Shippori Mincho", "Noto Serif JP", serif;
   
   /* Day Palette (Washi Paper & Sakura Rose) */
   --ink: #182232;
@@ -400,6 +400,42 @@ body.is-night .world,
   pointer-events: none;
 }
 
+/* Synchronized Scene Entrance Choreography (Eliminate Flash / Pop-in) */
+html.scene-loading .layer-sky,
+html.scene-loading .layer-shrine,
+html.scene-loading .petal-canvas,
+html.scene-loading .fireflies,
+html.scene-loading .topbar,
+html.scene-loading .bottom-bar,
+html.scene-loading .breeze-pill {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+html.scene-loading .wordmark-char {
+  opacity: 0 !important;
+  transform: translate3d(0, 36px, 0) !important;
+  animation: none !important;
+}
+
+.layer-sky,
+.layer-shrine,
+.topbar,
+.bottom-bar,
+.breeze-pill {
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.scene-ready .layer-sky,
+html.scene-ready .layer-shrine,
+html.scene-ready .petal-canvas,
+html.scene-ready .fireflies,
+html.scene-ready .topbar,
+html.scene-ready .bottom-bar,
+html.scene-ready .breeze-pill {
+  opacity: 1;
+}
+
 /* Layer 1: Sky & Mountains */
 .layer-sky {
   z-index: 1;
@@ -461,22 +497,24 @@ body.is-night .sky-atmosphere,
 }
 
 .wordmark {
-  font-family: var(--font-display);
-  font-size: clamp(84px, 18.5vw, 290px);
-  font-weight: 500;
-  line-height: 0.86;
-  letter-spacing: clamp(0.04em, 1.2vw, 0.08em);
+  font-family: "Bodoni Moda", var(--font-display);
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 96, "wght" 600;
+  font-size: clamp(88px, 19vw, 300px);
+  font-weight: 600;
+  line-height: 0.88;
+  letter-spacing: clamp(0.06em, 1.35vw, 0.11em);
   text-transform: lowercase;
   user-select: none;
   display: flex;
   justify-content: center;
   color: #ffffff;
   filter:
-    drop-shadow(0 6px 18px rgba(18, 28, 48, 0.38))
-    drop-shadow(0 2px 6px rgba(255, 235, 242, 0.45));
+    drop-shadow(0 6px 20px rgba(18, 28, 48, 0.35))
+    drop-shadow(0 0 32px rgba(255, 235, 245, 0.5));
   text-shadow:
-    0 1px 3px rgba(15, 23, 42, 0.4),
-    0 8px 32px rgba(255, 255, 255, 0.45);
+    0 1px 4px rgba(15, 23, 42, 0.4),
+    0 8px 36px rgba(255, 255, 255, 0.55);
   transition: filter 1.2s ease;
 }
 
@@ -484,19 +522,23 @@ body.is-night .wordmark,
 .world.is-night .wordmark {
   color: #ffffff;
   filter:
-    drop-shadow(0 0 45px rgba(230, 242, 255, 0.75))
-    drop-shadow(0 8px 30px rgba(10, 18, 38, 0.95));
+    drop-shadow(0 0 50px rgba(230, 242, 255, 0.85))
+    drop-shadow(0 8px 32px rgba(10, 18, 38, 0.95));
   text-shadow:
-    0 0 24px rgba(255, 255, 255, 0.8),
-    0 12px 40px rgba(180, 215, 255, 0.4);
+    0 0 28px rgba(255, 255, 255, 0.85),
+    0 12px 42px rgba(180, 215, 255, 0.45);
 }
 
 .wordmark-char {
   display: inline-block;
   opacity: 0;
-  transform: translate3d(0, 38px, 0);
-  animation: char-enter 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: calc(var(--letter) * 0.09s + 0.25s);
+  transform: translate3d(0, 36px, 0);
+  will-change: transform, opacity;
+}
+
+html.scene-ready .wordmark-char {
+  animation: char-enter 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(var(--letter) * 0.08s + 0.15s);
 }
 
 @keyframes char-enter {
@@ -2474,18 +2516,7 @@ body.is-night .panel-done {
   background-image: url("assets/sky-night.webp?v=4k");
 }
 
-.wordmark {
-  font-size: clamp(64px, 17.8vw, 290px);
-  letter-spacing: clamp(0.02em, 1vw, 0.08em);
-  max-width: 96vw;
-}
-
-.wordmark-char {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-  animation: none;
-  will-change: transform, opacity;
-}
+/* Wordmark responsive sizing handled in main layout */
 
 .topbar {
   position: absolute;

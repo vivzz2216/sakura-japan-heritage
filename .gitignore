@@ -10,3 +10,7 @@ temp_*.html
 # Tool & Inspection Artifacts
 .taste-skill/
 .impeccable/
+
+
+.vercel
+.env*
